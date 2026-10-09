@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Now / Next / Later Roadmap — Digital Instalment Journey</title>
+<style>
+  :root {
+    --ink: #122033;
+    --muted: #5c6b82;
+    --line: #e4eaf3;
+    --paper: #ffffff;
+    --bg: #f3f6fb;
+    --now: #1f8a4c;
+    --now-bg: #eefaf3;
+    --now-soft: #d8f3e4;
+    --next: #1f5fbf;
+    --next-bg: #eef4ff;
+    --next-soft: #d9e6ff;
+    --later: #b7791f;
+    --later-bg: #fff8ec;
+    --later-soft: #fde8c4;
+    --cut: #b42318;
+    --cut-bg: #fff5f4;
+    --cut-soft: #fde4e1;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.45;
+  }
+
+  .page {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 36px 28px 64px;
+  }
+
+  .eyebrow {
+    display: inline-block;
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 800;
+    color: var(--next);
+    background: #e7efff;
+    border-radius: 999px;
+    padding: 6px 12px;
+    margin-bottom: 12px;
+  }
+
+  h1 {
+    margin: 0 0 8px;
+    font-size: 36px;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+  }
+
+  .lede {
+    margin: 0 0 22px;
+    max-width: 820px;
+    color: var(--muted);
+    font-size: 16px;
+  }
+
+  .constraints {
+    background: var(--ink);
+    color: #f4f7fb;
+    border-radius: 18px;
+    padding: 18px 20px 16px;
+    margin-bottom: 22px;
+  }
+
+  .constraints h2 {
+    margin: 0 0 12px;
+    font-size: 13px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #9eb6d8;
+  }
+
+  .constraint-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1.2fr 1fr;
+    gap: 12px;
+  }
+
+  .constraint {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+    padding: 12px 14px;
+  }
+
+  .constraint .k {
+    display: block;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #8eb0e0;
+    font-weight: 800;
+    margin-bottom: 4px;
+  }
+
+  .constraint .v {
+    font-size: 14px;
+    color: #f7f9fc;
+  }
+
+  .anchors {
+    display: grid;
+    grid-template-columns: 1.2fr 1.1fr 1.4fr;
+    gap: 12px;
+    margin-bottom: 26px;
+  }
+
+  .anchor {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 14px 16px;
+  }
+
+  .anchor .k {
+    display: block;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 800;
+    margin-bottom: 4px;
+  }
+
+  .anchor .v { font-size: 14px; }
+
+  .lanes {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+    align-items: start;
+  }
+
+  .lane {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-top: 6px solid var(--accent);
+    border-radius: 18px;
+    padding: 16px 14px 8px;
+  }
+
+  .lane.now { --accent: var(--now); background: linear-gradient(180deg, var(--now-bg), #fff 90px); }
+  .lane.next { --accent: var(--next); background: linear-gradient(180deg, var(--next-bg), #fff 90px); }
+  .lane.later { --accent: var(--later); background: linear-gradient(180deg, var(--later-bg), #fff 90px); }
+
+  .lane-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 8px;
+    margin-bottom: 4px;
+  }
+
+  .lane-head h2 {
+    margin: 0;
+    font-size: 22px;
+    letter-spacing: -0.02em;
+  }
+
+  .window {
+    font-size: 12px;
+    font-weight: 800;
+    color: var(--accent);
+  }
+
+  .lane-sub {
+    margin: 0 0 14px;
+    color: var(--muted);
+    font-size: 13px;
+  }
+
+  .sprint {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 800;
+    color: var(--accent);
+    margin: 12px 2px 8px;
+  }
+
+  .card {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 12px 12px 11px;
+    margin-bottom: 10px;
+    box-shadow: 0 1px 0 rgba(18, 32, 51, 0.03);
+  }
+
+  .card-top {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    align-items: flex-start;
+    margin-bottom: 8px;
+  }
+
+  .fid {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    background: var(--accent);
+    color: #fff;
+    border-radius: 6px;
+    padding: 2px 6px;
+    margin-right: 6px;
+    vertical-align: 1px;
+  }
+
+  .card h3 {
+    display: inline;
+    margin: 0;
+    font-size: 15px;
+    letter-spacing: -0.01em;
+  }
+
+  .score {
+    flex: 0 0 auto;
+    text-align: right;
+  }
+
+  .score .num {
+    display: block;
+    font-size: 18px;
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    color: var(--accent);
+    line-height: 1;
+  }
+
+  .score .lbl {
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 800;
+  }
+
+  .solves {
+    margin: 0;
+    font-size: 13px;
+    color: #31445f;
+  }
+
+  .solves strong {
+    display: block;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 2px;
+  }
+
+  .note {
+    margin-top: 8px;
+    font-size: 12px;
+    color: var(--muted);
+    background: #f7f9fc;
+    border-radius: 8px;
+    padding: 7px 8px;
+  }
+
+  .cut {
+    margin-top: 22px;
+    background: var(--cut-bg);
+    border: 1px solid #f3c7c3;
+    border-radius: 18px;
+    padding: 16px 16px 8px;
+  }
+
+  .cut-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+
+  .cut-head h2 {
+    margin: 0;
+    font-size: 22px;
+    color: var(--cut);
+    letter-spacing: -0.02em;
+  }
+
+  .cut-head p {
+    margin: 0;
+    color: #7a403b;
+    font-size: 13px;
+  }
+
+  .cut-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+
+  .cut-card {
+    background: #fff;
+    border: 1px solid #f0d0cc;
+    border-radius: 12px;
+    padding: 11px 12px;
+    margin-bottom: 2px;
+  }
+
+  .cut-card h3 {
+    margin: 0 0 6px;
+    font-size: 14px;
+  }
+
+  .cut-card .fid {
+    background: var(--cut);
+  }
+
+  .cut-card .name {
+    text-decoration: line-through;
+    text-decoration-color: rgba(180, 35, 24, 0.45);
+  }
+
+  .cut-meta {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    align-items: flex-start;
+  }
+
+  .cut-card .solves { font-size: 12.5px; }
+
+  .cut-score {
+    flex: 0 0 auto;
+    font-size: 13px;
+    font-weight: 900;
+    color: var(--cut);
+    text-align: right;
+  }
+
+  .cut-score span {
+    display: block;
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #8a5a55;
+    font-weight: 800;
+  }
+
+  footer {
+    margin-top: 18px;
+    color: var(--muted);
+    font-size: 12px;
+  }
+
+  @media (max-width: 980px) {
+    .constraint-grid, .anchors, .lanes, .cut-grid { grid-template-columns: 1fr; }
+    h1 { font-size: 30px; }
+  }
+</style>
+</head>
+<body>
+  <main class="page">
+    <span class="eyebrow">Digital instalment journey · Germany pilot</span>
+    <h1>Now / Next / Later roadmap</h1>
+    <p class="lede">Sequenced for the shift-working consumer who must commit to a plan she trusts, without calling anyone. Value is scored 1–5 against Self-Service Rate only.</p>
+
+    <section class="constraints" aria-label="Applied constraints">
+      <h2>Applied constraints</h2>
+      <div class="constraint-grid">
+        <div class="constraint">
+          <span class="k">Team</span>
+          <span class="v">1 designer, 1 subject-matter expert, 6 developers (3 senior, 1 mid-level, 1 junior), 2 QA engineers.</span>
+        </div>
+        <div class="constraint">
+          <span class="k">What this team can build</span>
+          <span class="v">Frontend and middleware only. Backend and API changes must be requested from the broader organisation. Developers may occasionally support another team’s domain.</span>
+        </div>
+        <div class="constraint">
+          <span class="k">Cadence and scoring rule</span>
+          <span class="v">Sprints are 2 weeks. Now is the next 3 sprints. Next is the 3 after that. A feature only scores high if it moves SSR for this persona.</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="anchors" aria-label="Strategic anchors">
+      <div class="anchor">
+        <span class="k">Persona</span>
+        <span class="v">Shift worker, income varies week to week, one or more open claims, resolving them in the portal.</span>
+      </div>
+      <div class="anchor">
+        <span class="k">Primary metric</span>
+        <span class="v">Self-Service Rate: resolved, with no inbound contact in the 30 days before or after.</span>
+      </div>
+      <div class="anchor">
+        <span class="k">Moment of misery</span>
+        <span class="v">The commit screen shows one number with no reason, and no explanation of a missed payment. She either calls, stalls, or agrees and later defaults.</span>
+      </div>
+    </section>
+
+    <section class="lanes" aria-label="Roadmap columns">
+      <article class="lane now">
+        <div class="lane-head">
+          <h2>Now</h2>
+          <span class="window">Sprints 1–3</span>
+        </div>
+        <p class="lane-sub">In-team. No backend dependency. Hits fear, consequence, and the call she makes just to understand.</p>
+
+        <div class="sprint">Sprint 1</div>
+        <article class="card">
+          <div class="card-top">
+            <div><span class="fid">F20</span><h3>Hardship disclosure statement</h3></div>
+            <div class="score"><span class="num">5</span><span class="lbl">Value</span></div>
+          </div>
+          <p class="solves"><strong>Solves</strong>She does not know whether telling the truth about hardship will be used against her, so she drops out before anyone sees her.</p>
+        </article>
+        <article class="card">
+          <div class="card-top">
+            <div><span class="fid">F11</span><h3>Non-penalising assurance banner</h3></div>
+            <div class="score"><span class="num">4</span><span class="lbl">Value</span></div>
+          </div>
+          <p class="solves"><strong>Solves</strong>Fear that a “wrong” affordability answer will be held against her later, which stops an honest commitment.</p>
+        </article>
+
+        <div class="sprint">Sprint 2</div>
+        <article class="card">
+          <div class="card-top">
+            <div><span class="fid">F09</span><h3>Missed-payment explainer</h3></div>
+            <div class="score"><span class="num">5</span><span class="lbl">Value</span></div>
+          </div>
+          <p class="solves"><strong>Solves</strong>“Nobody told me what happens if I miss one payment versus two.” This is the confirmed default in the research.</p>
+        </article>
+        <article class="card">
+          <div class="card-top">
+            <div><span class="fid">F19</span><h3>Signposted hardship pathway</h3></div>
+            <div class="score"><span class="num">4</span><span class="lbl">Value</span></div>
+          </div>
+          <p class="solves"><strong>Solves</strong>No visible support path when she is already struggling, so vulnerable cases vanish without a plan or a call.</p>
+        </article>
+
+        <div class="sprint">Sprint 3</div>
+        <article class="card">
+          <div class="card-top">
+            <div><span class="fid">F03</span><h3>Mobile resumable upload</h3></div>
+            <div class="score"><span class="num">4</span><span class="lbl">Value</span></div>
+          </div>
+          <p class="solves"><strong>Solves</strong>The upload fails on her phone during a short break, so she abandons the portal and calls an agent.</p>
+        </article>
+        <article class="card">
+          <div class="card-top">
+            <div><span class="fid">F15</span><h3>Plan health dashboard</h3></div>
+            <div class="score"><span class="num">4</span><span class="lbl">Value</span></div>
+          </div>
+          <p class="solves"><strong>Solves</strong>She calls after setup just to see status or the next payment, which breaks the 30-day no-contact half of SSR.</p>
+        </article>
+        <p class="note">Day 1 of Sprint 1, in parallel: request backend capacity for F08, F02, and F12/F13. Those clocks do not start when this team is free.</p>
+      </article>
+
+      <article class="lane next">
+        <div class="lane-head">
+          <h2>Next</h2>
+          <span class="window">Sprints 4–6</span>
+        </div>
+        <p class="lane-sub">Catch weak commitments before they count as resolved, then land the first backend-dependent unblock.</p>
+
+        <div class="sprint">Sprint 4</div>
+        <article class="card">
+          <div class="card-top">
+            <div><span class="fid">F10</span><h3>Pre-commit confidence check</h3></div>
+            <div class="score"><span class="num">4</span><span class="lbl">Value</span></div>
+          </div>
+          <p class="solves"><strong>Solves</strong>Plans created on shaky affordability data. A low score routes to support instead of a silent “resolved.”</p>
+        </article>
+
+        <div class="sprint">Sprint 5</div>
+        <article class="card">
+          <div class="card-top">
+            <div><span class="fid">F21</span><h3>Low-confidence escalation rule</h3></div>
+            <div class="score"><span class="num">5</span><span class="lbl">Value</span></div>
+          </div>
+          <p class="solves"><strong>Solves</strong>An opaque recommendation becoming the only outcome. Low-confidence and vulnerable cases must be reviewable.</p>
+          <p class="note">Uses the confidence signal from F10, so it follows immediately.</p>
+        </article>
+
+        <div class="sprint">Sprint 6</div>
+        <article class="card">
+          <div class="card-top">
+            <div><span class="fid">F02</span><h3>Self-declared income band</h3></div>
+            <div class="score"><span class="num">5</span><span class="lbl">Value</span></div>
+          </div>
+          <p class="solves"><strong>Solves</strong>The most common dead end: she cannot produce payslips on her phone, so the journey stops before a plan exists.</p>
+          <p class="note">Lands only if the Sprint 1 backend request has shipped. Otherwise this sprint is a buffer and the blocker is escalated.</p>
+        </article>
+      </article>
+
+      <article class="lane later">
+        <div class="lane-head">
+          <h2>Later</h2>
+          <span class="window">After sprint 6</span>
+        </div>
+        <p class="lane-sub">Worth doing. Gated on organisation-owned backend, in dependency order.</p>
+
+        <article class="card">
+          <div class="card-top">
+            <div><span class="fid">F08</span><h3>Explainability service</h3></div>
+            <div class="score"><span class="num">5</span><span class="lbl">Value</span></div>
+          </div>
+          <p class="solves"><strong>Solves</strong>There is no shared, auditable reason behind a suggested amount. Unlocks the rationale panel.</p>
+        </article>
+        <article class="card">
+          <div class="card-top">
+            <div><span class="fid">F05</span><h3>Plan rationale panel</h3></div>
+            <div class="score"><span class="num">5</span><span class="lbl">Value</span></div>
+          </div>
+          <p class="solves"><strong>Solves</strong>“It just gave me a number. I don’t know why that number, so I didn’t trust it.” Starts only after F08.</p>
+        </article>
+        <article class="card">
+          <div class="card-top">
+            <div><span class="fid">F12</span><h3>Self-service amount change</h3></div>
+            <div class="score"><span class="num">5</span><span class="lbl">Value</span></div>
+          </div>
+          <p class="solves"><strong>Solves</strong>A dip in shift income becomes a missed payment because she cannot change the plan herself.</p>
+        </article>
+        <article class="card">
+          <div class="card-top">
+            <div><span class="fid">F13</span><h3>Self-service pause or skip</h3></div>
+            <div class="score"><span class="num">4</span><span class="lbl">Value</span></div>
+          </div>
+          <p class="solves"><strong>Solves</strong>A short cash gap with no way to pause one payment. Built on F12’s plan-change path.</p>
+        </article>
+        <article class="card">
+          <div class="card-top">
+            <div><span class="fid">F14</span><h3>Income-dip check-in</h3></div>
+            <div class="score"><span class="num">4</span><span class="lbl">Value</span></div>
+          </div>
+          <p class="solves"><strong>Solves</strong>She defaults quietly because nothing reaches her before the due date. Lowest priority in this group.</p>
+        </article>
+        <article class="card">
+          <div class="card-top">
+            <div><span class="fid">F04</span><h3>“Why we ask” micro-copy</h3></div>
+            <div class="score"><span class="num">2</span><span class="lbl">Value</span></div>
+          </div>
+          <p class="solves"><strong>Solves</strong>Confusion about why income proof is requested. Slot in when a sprint has spare capacity.</p>
+        </article>
+        <article class="card">
+          <div class="card-top">
+            <div><span class="fid">F17</span><h3>Claim labels in navigation</h3></div>
+            <div class="score"><span class="num">2</span><span class="lbl">Value</span></div>
+          </div>
+          <p class="solves"><strong>Solves</strong>Two claims that look almost identical. Filler only; it does not fix the commit moment.</p>
+        </article>
+      </article>
+    </section>
+
+    <section class="cut" aria-label="Cut list">
+      <div class="cut-head">
+        <h2>Cut</h2>
+        <p>Does not move SSR for this persona, or a cheaper item already solves it.</p>
+      </div>
+      <div class="cut-grid">
+        <article class="cut-card">
+          <div class="cut-meta">
+            <h3><span class="fid">F22</span><span class="name">Data summary at handoff</span></h3>
+            <div class="cut-score">2<span>Value</span></div>
+          </div>
+          <p class="solves"><strong>Why cut</strong>By the time an agent sees the case, the no-contact test has already failed.</p>
+        </article>
+        <article class="cut-card">
+          <div class="cut-meta">
+            <h3><span class="fid">F23</span><span class="name">Escalation reason tagging</span></h3>
+            <div class="cut-score">1<span>Value</span></div>
+          </div>
+          <p class="solves"><strong>Why cut</strong>Improves triage reporting only. It never changes whether she resolves alone.</p>
+        </article>
+        <article class="cut-card">
+          <div class="cut-meta">
+            <h3><span class="fid">F24</span><span class="name">Cross-channel timeline</span></h3>
+            <div class="cut-score">2<span>Value</span></div>
+          </div>
+          <p class="solves"><strong>Why cut</strong>Heaviest backend build on the list, and it only helps cases that already left self-service.</p>
+        </article>
+        <article class="cut-card">
+          <div class="cut-meta">
+            <h3><span class="fid">F25</span><span class="name">Agent override tool</span></h3>
+            <div class="cut-score">2<span>Value</span></div>
+          </div>
+          <p class="solves"><strong>Why cut</strong>A governance need after escalation, not a step in her portal journey.</p>
+        </article>
+        <article class="cut-card">
+          <div class="cut-meta">
+            <h3><span class="fid">F07</span><span class="name">Confirm with a person</span></h3>
+            <div class="cut-score">2<span>Value</span></div>
+          </div>
+          <p class="solves"><strong>Why cut</strong>Using it creates inbound contact, so the case leaves SSR by design.</p>
+        </article>
+        <article class="cut-card">
+          <div class="cut-meta">
+            <h3><span class="fid">F01</span><span class="name">Flexible income range</span></h3>
+            <div class="cut-score">3<span>Value</span></div>
+          </div>
+          <p class="solves"><strong>Why cut</strong>F09 and F02 cover the same trust and document problem with less backend work.</p>
+        </article>
+        <article class="cut-card">
+          <div class="cut-meta">
+            <h3><span class="fid">F06</span><span class="name">Adjustable plan slider</span></h3>
+            <div class="cut-score">3<span>Value</span></div>
+          </div>
+          <p class="solves"><strong>Why cut</strong>Secondary to the rationale panel, and it needs its own backend guardrail.</p>
+        </article>
+        <article class="cut-card">
+          <div class="cut-meta">
+            <h3><span class="fid">F16</span><span class="name">Combined affordability view</span></h3>
+            <div class="cut-score">3<span>Value</span></div>
+          </div>
+          <p class="solves"><strong>Why cut</strong>Real multi-claim pain, but a narrow slice and a backend aggregation the team does not own.</p>
+        </article>
+        <article class="cut-card">
+          <div class="cut-meta">
+            <h3><span class="fid">F18</span><span class="name">Default combined plan</span></h3>
+            <div class="cut-score">2<span>Value</span></div>
+          </div>
+          <p class="solves"><strong>Why cut</strong>Weakest signal in the 100-point set, paired with a behaviour change outside this team.</p>
+        </article>
+      </div>
+    </section>
+
+    <footer>Riverty case study · BU Collection — A Fair Way Forward. Value scores are against SSR for the shift-working persona, not against agent efficiency.</footer>
+  </main>
+</body>
+</html>
