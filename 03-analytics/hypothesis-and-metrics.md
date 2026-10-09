@@ -1,17 +1,35 @@
-# Hypothesis & Success Metrics
+# Hypothesis & Success Metrics (Module 3)
 
-> **Module 3 · ★ Deliverable 3.** Repo file `03-analytics/hypothesis-and-metrics.md` — part of your submission.
-> Do the lab in the **Module 3 · Exercise Guide** (linked from the Module 3 deck), then click **⬇ Download .md** — it saves as this exact file. Commit it here.
-> It feeds the **Problem, Value & Hypothesis** slide of your Module 6 final deck.
+## Pre-work · Hypothesis check
+- **Role , who you are solving for (from M2):** Mara has two open claims. Her income is stable but varies with her shift work, and she can't pay the total at once. After a digital reminder she opens the portal on her phone, with little time to spare. She isn't sure whether a plan would be affordable, why she's being asked about her income, what happens if she misses a payment, whether both claims can be handled together, or whether accepting an offer could make things worse. If the journey confuses her or asks for documents she can't easily find, she calls an agent
+- **Goal , what this user is ultimately trying to achieve:** o commit to an instalment plan she's actually confident she can keep — without needing to call anyone to get there
+- **Friction / moment of misery , the specific pain blocking their goal:** At the exact moment she's asked to commit, the system shows her a single number with no reasoning behind it — "It just gave me a number. I don't know why that number and not a different one, so I didn't trust it" — and no explanation of what happens if her variable income means she falls short — "Nobody told me what happens if I miss one payment versus two. I just assumed the worst." This persona drives the highest agent-escalation rate of any archetype in the research (high cost per claim), and is also the only persona tied to a confirmed post-agreement default — a case our own research explicitly flags as "resolved at creation, but didn't hold" (payment default risk).
+- **Current workaround , the external tool or manual process they rely on (M2):** Call Consumer Support
+- **Problem Hook , your one-sentence framing of the business crisis (M1):** We must solve payment default risk, high cost per claim and damage to Riverty reputation by giving consumers agency of resolving their claims independently and reliably.
+- **Value Proposition , the outcome your initiative promised to deliver (M1):** By priotizing the consumer's power to resolve their claims with no or minimal contact to Riverty, we increase revenues from payments and reduce the agent cost per claim while giving consumers the feeling of agency over their own financial situation. Ongoing data-driven analysis of funnel adoption provide the chance to tweak the instalment funnel to perfection.
 
-## Finalized product hypothesis
+## Read your data snapshots
+- **Does the funnel data confirm your M2 friction point, or does it tell a different story? Note where the numbers align with the qualitative pain you found and where they diverge.:** _(not filled in)_
+- **Do the retention patterns align with the workaround your M2 persona used to find content? Note what the Mo. 0→1 drop suggests about the onboarding experience your persona described as frustrating.:** _(not filled in)_
+- **Does the LTV gap and the content mix (61% trending for Wanderers) confirm the moment of misery your persona described? Note which segment your persona is in and whether the data confirms their pain.:** _(not filled in)_
+- **Does the low adoption confirm your persona is burdened by tools they don’t use? Note whether the low scheduling adoption (42%) for coordinators matches your M2 moment of misery.:** _(not filled in)_
+- **Does the workflow data match the manual process or hack you documented in M2? Note whether the specific drop-offs or time gaps explain why your persona avoids the digital tool.:** _(not filled in)_
+- **Look at the CSAT heatmap. Which specific cell most directly maps to your persona’s friction? Note how the NPS trend justifies the urgency of your M1 Problem Hook.:** _(not filled in)_
 
-> Based on [qual + quant evidence], I believe that [solving X] for [persona] will result in [outcome], as measured by a [X%] change in [success metric]. I will protect [guardrail metric] and make a go/no-go decision after [decision window].
+## Step 3 · Craft your hypothesis
+- **Qualitative evidence (from M2) , quote the specific friction / moment of misery for your persona:** At the exact moment she's asked to commit, the system shows her a single number with no reasoning behind it — "It just gave me a number. I don't know why that number and not a different one, so I didn't trust it" — and no explanation of what happens if her variable income means she falls short — "Nobody told me what happens if I miss one payment versus two. I just assumed the worst." This persona drives the highest agent-escalation rate of any archetype in the research (high cost per claim), and is also the only persona tied to a confirmed post-agreement default — a case our own research explicitly flags as "resolved at creation, but didn't hold" (payment default risk).
+- **Quantitative evidence (from M3) , name the metric or data point that confirms the pain; cite the number:** Only 22% of portal visitors start an instalment journey, only 46% of those journeys end in an agreement.
+- **Persona , role, goal, and the friction you confirmed in the reconciliation steps:** A shift-working consumer whose income varies week to week, trying to manage one or more open claims entirely through the digital portal rather than by phone.
+- **Problem you are solving , one sentence describing the specific friction this initiative removes:** Lacking the confidence in the automated instalment plan journey, the consumer feels that she needs to call the agent.
+- **Strategic outcome , what behaviour change do you expect, and how does it map to retention / revenue / churn?:** The consumer feels confident that the number she is shown in the instalment plan journey matches her individiual situation. She agrees to the instalment plan and is able to keep it sustainably.
+- **Primary success metric (initiative signal) , the leading indicator that tells you the gap is closing:** Self-Service Rate (SSR). SSR counts cases that are resolved (the consumer paid, or successfully set up an instalment plan) with no inbound contact in the 30 days before or after resolution.
+- **Guardrail metric (product signal) , the metric that must NOT drop; it protects your existing base:** Fairness to consumers: Don't optimise only for the highest monthly payment. Consumers must understand their options and the important consequences. Vulnerable consumers need an appropriate support path.
+Responsible automation: No consumer gets an adverse outcome solely from an opaque model decision. Low-confidence and exceptional cases are escalated, recommendations can be explained to consumers and agents, and human override is possible and auditable.
+Data care: Be clear about what data you collect, who can access it, and how long it's kept. Watch for proxy discrimination and effects on specific subgroups.
+Scalability: Separate reusable capabilities from local legal rules and client-specific settings. Different clients and portfolios must not require separate product forks.
+- **Decision window , how much time or data before you scale, pivot, or kill? minimum threshold to proceed?:** 3 months
+- **Draft your full hypothesis sentence , one to three sentences; quote the metric, name the persona, name the outcome:** Evidence shows that consumers like Mara do not understand what an affordable instalment agreement looks like, why affordability information is requested, how recommended payment amounts are determined, and what happens if they miss a payment, combined with the fact that only 22% of portal visitors start an instalment journey and only 46% of journeys end in an agreement.
 
-## Success metrics
+I believe that solving the trust and confidence gap in the digital instalment journey through greater transparency and explainability for shift-working consumers with variable income such as Mara will result in more consumers agreeing to and sustaining an affordable instalment plan without contacting an agent.
 
-| Metric | Type | Target | Why it matters |
-|---|---|---|---|
-| _North-star_ | | _____ | _____ |
-| _Leading indicator_ | | _____ | _____ |
-| _Guardrail_ | | _____ | _____ |
+This will be measured by a 10 percentage point increase in Self-Service Rate (SSR). I will protect consumer fairness, responsible automation, data care, and scalability and will make a go/no-go decision after 3 months.
